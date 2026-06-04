@@ -1,0 +1,6 @@
+{
+  "name": "pushagold",
+  "scripts": {
+    "build": "echo 'No build needed'"
+  }
+}
