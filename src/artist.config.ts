@@ -13,21 +13,21 @@ export function getArtistName(eraName: string | undefined): string {
 }
 
 export const CUSTOM_IMAGES: Record<string, string> = {
-  "Exclusive Audio Footage": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
+  "Exclusive Audio Footage": "https://i.ibb.co/C3BcRTdG/Clipseunreleasedalbum1.jpg",
   "Lord Willin'": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
   "Hell Hath No Fury": "https://i.ibb.co/KStjJ5d/IMG-4322.jpg",
   "Til The Casket Drops": "https://i.ibb.co/pBnxSb7c/IMG-4329.jpg",
   "Fear of God": "https://i.ibb.co/3YWv1WZb/IMG-4335.jpg",
   "Fear of God II": "https://i.ibb.co/RT8zDxyf/IMG-4349.jpg",
   "Wrath Of Caine": "https://i.ibb.co/twmTZ0yB/IMG-4354.jpg",
-  "My Name Is My Name": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
-  "As God As My Witness": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
-  "Darkest Before Dawn": "https://i.ibb.co/3YWv1WZb/IMG-4335.jpg",
-  "Blowbama": "https://i.ibb.co/1fX0N137/Daytona.jpg",
-  "DAYTONA": "https://i.ibb.co/1fX0N137/Daytona.jpg",
-  "It's Almost Dry": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
-  "Let God Sort 'Em Out": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
-  "LP5": "https://i.ibb.co/FLqCKDtg/IMG-4313.jpg",
+  "My Name Is My Name": "https://i.ibb.co/Cp1G00s5/IMG-4363.jpg",
+  "As God As My Witness": "https://i.ibb.co/k2Lp9qW6/download-2.jpg",
+  "Darkest Before Dawn": "https://i.ibb.co/yc2TckmZ/IMG-4369.jpg",
+  "Blowbama": "https://i.ibb.co/823mVfH/be2cwujayb011.jpg",
+  "DAYTONA": "https://i.ibb.co/Kpm7HjbS/IMG-4386.jpg",
+  "It's Almost Dry": "https://i.ibb.co/qLB1TLyP/IMG-4387.jpg",
+  "Let God Sort 'Em Out": "https://i.ibb.co/PK9txm8/Let-God-Sort-Em-Out.jpg",
+  "Ongoing": "https://i.ibb.co/27NKNNk8/Pusha-T-Spanberger-Richmond-photo-by-Breon-Corbett-RVA-Magazine-2026-2-scaled.jpg",
 };
 
 export const ALBUM_RELEASE_DATES: Record<string, string> = {
@@ -45,7 +45,7 @@ export const ALBUM_RELEASE_DATES: Record<string, string> = {
   "DAYTONA": "05/25/2018",
   "It's Almost Dry": "04/22/2022",
   "Let God Sort 'Em Out": "07/11/2025",
-  "LP5": "??/??/????",
+  "Ongoing": "??/??/????",
 };
 
 export const HIDDEN_ALBUMS: string[] = [];
@@ -83,7 +83,7 @@ export const ALBUM_SONG_COUNTS: Record<string, number> = {
   "DAYTONA": 10,
   "It's Almost Dry": 25,
   "Let God Sort 'Em Out": 15,
-  "LP5": 5,
+  "Ongoing": 5,
 };
 
 export const CUSTOM_ALBUM_INFO: Record<string, string[]> = {};

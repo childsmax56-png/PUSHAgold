@@ -102,7 +102,7 @@ export const onRequestGet: PagesFunction = async (context) => {
       "DAYTONA",
       "It's Almost Dry",
       "Let God Sort 'Em Out",
-      "LP5",
+      "Ongoing",
     ];
 
     const orderedEras: Record<string, any> = {};
