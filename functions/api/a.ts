@@ -12,7 +12,8 @@ function parseSongName(raw: string): { name: string; extra: string | undefined }
 // to the end of the object and breaks ordering. Return the final names directly so
 // App.tsx sees them as already-mapped and leaves them in place.
 const ERA_NAME_MAP: Record<string, string> = {
-  "My Name Is My\nName": "My Name Is My Name",
+  "Fear of God II: Let Us Pray": "Fear of God II",
+  "King Push – Darkest Before Dawn: The Prelude": "Darkest Before Dawn",
 };
 
 function mapEraName(name: string): string {
@@ -84,6 +85,20 @@ export const onRequestGet: PagesFunction = async (context) => {
           url: links[0] ?? '',
           urls: links,
         });
+      }
+    }
+
+    // Pre-seed eras that have no header row in the CSV or no unreleased entries at all
+    const PRESEED_ERAS: string[] = [
+      "As God As My Witness",
+      "It's Almost Dry",
+      "Let God Sort 'Em Out",
+      "Ongoing",
+    ];
+    for (const name of PRESEED_ERAS) {
+      validEraNames.add(name);
+      if (!eras[name]) {
+        eras[name] = { name, data: { 'Unreleased Tracks': [] } };
       }
     }
 
