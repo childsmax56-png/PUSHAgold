@@ -3,8 +3,10 @@ export const SITE_DESCRIPTION = "The Best Clipse / Pusha T Tracker In The World!
 export const SITE_URL = "https://pushagold.pages.dev/";
 export const OG_IMAGE_URL = "";
 export const STORAGE_PREFIX = "pushagold_";
-export const HARDCODED_SHEET_ID = "";
+export const HARDCODED_SHEET_ID = "19wsRrbQxQ7sz-LhkEYUlKIcVFvXdcG1hvT58zEY03sA";
 export const HARDCODED_SHEET_GID = "";
+export const SHEET_URL_UNRELEASED = "https://docs.google.com/spreadsheets/d/19wsRrbQxQ7sz-LhkEYUlKIcVFvXdcG1hvT58zEY03sA/gviz/tq?tqx=out:csv&sheet=Unreleased";
+export const SHEET_URL_RECENT = "https://docs.google.com/spreadsheets/d/19wsRrbQxQ7sz-LhkEYUlKIcVFvXdcG1hvT58zEY03sA/gviz/tq?tqx=out:csv&sheet=Recent";
 
 export function getArtistName(eraName: string | undefined): string {
   if (!eraName) return "Pusha T";
