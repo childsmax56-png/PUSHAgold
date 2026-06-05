@@ -37,20 +37,36 @@ export const onRequestGet: PagesFunction = async (context) => {
     // First pass: collect real era names from header rows (mapped to final names).
     // Header rows have newlines in the Era field (file counts). Stats rows also have newlines
     // but their Name field starts with a digit — skip those.
-    const validEraNames = new Set<string>(); // raw CSV names
+    // First pass: collect era names from header rows + their mapped names
+    const validEraNames = new Set<string>();
     for (const row of rows) {
-      const eraField = row['Era'] ?? '';
-      if (!eraField.includes('\n')) continue;
-      const { name: eraName } = parseSongName(row[NAME_KEY] ?? '');
-      if (eraName && !/^\d+\s/.test(eraName)) validEraNames.add(eraName);
+      const eraField = row[‘Era’] ?? ‘’;
+      if (!eraField.includes(‘\n’)) continue;
+      const { name: eraName } = parseSongName(row[NAME_KEY] ?? ‘’);
+      if (eraName && !/^\d+\s/.test(eraName)) {
+        validEraNames.add(eraName);
+        validEraNames.add(mapEraName(eraName)); // mapped name so short track-row era names match
+      }
     }
 
-    // Second pass: build eras and songs, ignoring anything outside known eras.
-    for (const row of rows) {
-      const eraField = row['Era'] ?? '';
-      const nameField = row[NAME_KEY] ?? '';
+    // Pre-seed eras with no header row so their track rows are picked up in the second pass
+    const PRESEED_ERAS: string[] = [
+      "As God As My Witness",
+      "It’s Almost Dry",
+      "Let God Sort ‘Em Out",
+      "Ongoing",
+    ];
+    for (const name of PRESEED_ERAS) {
+      validEraNames.add(name);
+      eras[name] = { name, data: { ‘Unreleased Tracks’: [] } };
+    }
 
-      if (eraField.includes('\n')) {
+    // Second pass: build eras and songs
+    for (const row of rows) {
+      const eraField = row[‘Era’] ?? ‘’;
+      const nameField = row[NAME_KEY] ?? ‘’;
+
+      if (eraField.includes(‘\n’)) {
         // Era header row
         const { name: rawName, extra } = parseSongName(nameField);
         if (!rawName || !validEraNames.has(rawName)) continue;
@@ -59,52 +75,43 @@ export const onRequestGet: PagesFunction = async (context) => {
         eras[eraName] = {
           name: eraName,
           extra: extra ?? undefined,
-          timeline: row['Notes']?.trim() || undefined,
-          fileInfo: eraField.split('\n').map((l: string) => l.trim()).filter(Boolean),
-          data: { 'Unreleased Tracks': [] },
+          timeline: row[‘Notes’]?.trim() || undefined,
+          fileInfo: eraField.split(‘\n’).map((l: string) => l.trim()).filter(Boolean),
+          data: { ‘Unreleased Tracks’: [] },
         };
       } else if (eraField && validEraNames.has(eraField.trim())) {
-        // Regular song row — only if it belongs to a known era
+        // Regular song row
         const eraName = mapEraName(eraField.trim());
         if (!eras[eraName]) {
-          eras[eraName] = { name: eraName, data: { 'Unreleased Tracks': [] } };
+          eras[eraName] = { name: eraName, data: { ‘Unreleased Tracks’: [] } };
         }
 
         const { name, extra } = parseSongName(nameField);
-        const links = (row['Link(s)'] ?? '').split('\n').map((l: string) => l.trim()).filter(Boolean);
+        const links = (row[‘Link(s)’] ?? ‘’).split(‘\n’).map((l: string) => l.trim()).filter(Boolean);
 
-        eras[eraName].data['Unreleased Tracks'].push({
+        eras[eraName].data[‘Unreleased Tracks’].push({
           name,
           extra: extra ?? undefined,
-          description: row['Notes'] ?? '',
-          track_length: row['Track Length'] ?? '',
-          file_date: row['File Date'] ?? '',
-          leak_date: row['Leak Date'] ?? '',
-          available_length: row['Available Length'] ?? '',
-          quality: row['Quality'] ?? '',
-          url: links[0] ?? '',
+          description: row[‘Notes’] ?? ‘’,
+          track_length: row[‘Track Length’] ?? ‘’,
+          file_date: row[‘File Date’] ?? ‘’,
+          leak_date: row[‘Leak Date’] ?? ‘’,
+          available_length: row[‘Available Length’] ?? ‘’,
+          quality: row[‘Quality’] ?? ‘’,
+          url: links[0] ?? ‘’,
           urls: links,
         });
       }
     }
 
-    // Pre-seed eras that have no header row in the CSV or no unreleased entries at all
-    const PRESEED_ERAS: string[] = [
-      "As God As My Witness",
-      "It's Almost Dry",
-      "Let God Sort 'Em Out",
-      "Ongoing",
-    ];
+    // Ensure preseeded eras still exist if the second pass overwrote them with empty data
     for (const name of PRESEED_ERAS) {
-      validEraNames.add(name);
-      if (!eras[name]) {
-        eras[name] = { name, data: { 'Unreleased Tracks': [] } };
-      }
+      if (!eras[name]) eras[name] = { name, data: { ‘Unreleased Tracks’: [] } };
     }
 
     const ERA_ORDER = [
       "Exclusive Audio Footage",
-      "Lord Willin'",
+      "Lord Willin’",
       "Hell Hath No Fury",
       "Til The Casket Drops",
       "Fear of God",
@@ -115,8 +122,8 @@ export const onRequestGet: PagesFunction = async (context) => {
       "Darkest Before Dawn",
       "Blowbama",
       "DAYTONA",
-      "It's Almost Dry",
-      "Let God Sort 'Em Out",
+      "It’s Almost Dry",
+      "Let God Sort ’Em Out",
       "Ongoing",
     ];
 
