@@ -46,8 +46,8 @@ export const onRequestGet: PagesFunction = async (context) => {
     // Pre-seed eras with no header row so their track rows are picked up in the second pass
     const PRESEED_ERAS: string[] = [
       'As God As My Witness',
-      "It’s Almost Dry",
-      "Let God Sort ’Em Out",
+      "It's Almost Dry",
+      "Let God Sort 'Em Out",
       'Ongoing',
     ];
     for (const name of PRESEED_ERAS) {
@@ -114,8 +114,8 @@ export const onRequestGet: PagesFunction = async (context) => {
       'Darkest Before Dawn',
       'Blowbama',
       'DAYTONA',
-      "It’s Almost Dry",
-      "Let God Sort ’Em Out",
+      "It's Almost Dry",
+      "Let God Sort 'Em Out",
       'Ongoing',
     ];
 
